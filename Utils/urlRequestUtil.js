@@ -8,7 +8,7 @@ export const shortURLRequest = async (url) => {
         url: url,
       }
     );
-    return shortUrlResponse.data;
+    return shortUrlResponse;
   } catch (error) {
     if (error.response.status == 409) {
       return error.response;

@@ -89,18 +89,19 @@ export const UrlShortner = () => {
       });
       return;
     }
-    const urlActive = await isActiveURL(url);
-    if (!urlActive) {
-      toast.update(toastId, {
-        render: "Provided URL is not working..",
-        type: "error",
-        isLoading: false,
-        autoClose: 3000,
-      });
-      return;
-    }
+    // const urlActive = await isActiveURL(url);
+    // if (!urlActive) {
+    //   toast.update(toastId, {
+    //     render: "Provided URL is not working..",
+    //     type: "error",
+    //     isLoading: false,
+    //     autoClose: 3000,
+    //   });
+    //   return;
+    // }
     //Post Req to short the given url.
     const shortUrlResponse = await shortURLRequest(url); //Utils Function
+    console.log(shortUrlResponse);
     if (shortUrlResponse.data) {
       toast.update(toastId, {
         render: "Short URL Generation Success..",
@@ -110,8 +111,8 @@ export const UrlShortner = () => {
       });
     } else {
       toast.update(toastId, {
-        render: `Something went wrong`,
-        type: "warning",
+        render: `Something went wrong. Please try again...`,
+        type: "error",
         isLoading: false,
         autoClose: 3000,
       });
