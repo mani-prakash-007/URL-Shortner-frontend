@@ -35,7 +35,6 @@ export const UrlShortner = () => {
 
   //Handle inputBox Click
   const handleInputBoxClick = (url) => {
-    console.log("ip click : ", url);
     window.open(url, "_blank");
   };
 
@@ -47,11 +46,8 @@ export const UrlShortner = () => {
           url
         )}`
       );
-
-      console.log(response);
       return response.status == 200;
     } catch (error) {
-      console.log("Error Checking URL : ", error);
       return false;
     }
   };
@@ -71,7 +67,6 @@ export const UrlShortner = () => {
 
   //Handle Submit
   const handleSubmit = async (url) => {
-    console.log(url);
     const toastId = toast.loading("Generating Short URL...", {
       position: "top-right",
     });
@@ -85,7 +80,6 @@ export const UrlShortner = () => {
       return;
     }
     const validUrl = checkUrlRegex(url);
-    console.log("Reg-Ex : ", validUrl);
     if (!validUrl) {
       toast.update(toastId, {
         render: "Provide a Valid URL. Starting with 'https://' or 'http://' ",
@@ -96,7 +90,6 @@ export const UrlShortner = () => {
       return;
     }
     const urlActive = await isActiveURL(url);
-    console.log("handle Click : ", urlActive);
     if (!urlActive) {
       toast.update(toastId, {
         render: "Provided URL is not working..",
@@ -108,7 +101,6 @@ export const UrlShortner = () => {
     }
     //Post Req to short the given url.
     const shortUrlResponse = await shortURLRequest(url); //Utils Function
-    console.log(shortUrlResponse);
     if (shortUrlResponse.data) {
       toast.update(toastId, {
         render: "Short URL Generation Success..",
@@ -116,7 +108,6 @@ export const UrlShortner = () => {
         isLoading: false,
         autoClose: 3000,
       });
-      console.log(shortUrlResponse.data);
     } else {
       toast.update(toastId, {
         render: `Something went wrong`,
@@ -127,7 +118,6 @@ export const UrlShortner = () => {
     }
     setShortURL(shortUrlResponse.data);
   };
-  console.log(shortURL);
   return (
     <>
       <ToastContainer stacked />
